@@ -100,3 +100,4 @@ source $ZSH/oh-my-zsh.sh
 alias ll="ls -lah"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
