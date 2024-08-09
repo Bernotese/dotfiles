@@ -1,0 +1,11 @@
+[includeIf "gitdir:~/workspace/weedbuddy/"]
+	path = .gitconfig-lelek
+[includeIf "gitdir:~/workspace/"]
+	path = .gitconfig-default
+[core]
+	editor = vim
+[init]
+	defaultBranch = main
+[user]
+	email = jannesgoebel00@gmail.com
+	name = jannes
