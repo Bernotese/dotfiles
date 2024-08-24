@@ -80,4 +80,7 @@ fi
 # Deaktivieren des virtuellen Umfelds
 deactivate
 
+# Clone dotfiles repo
+git clone https://github.com/Bernotese/dotfiles.git
+
 echo "Fertig!"
