@@ -1,3 +1,8 @@
 ---
-- name: ZSH installation
-  ansible.builtin.import_playbook:: 10-zsh.yml
+- name: Personal Setup
+  hosts: localhost
+
+  tasks:
+    - name: ZSH installation
+      ansible.builtin.import_tasks:
+        file: 10-zsh.yaml
