@@ -29,6 +29,14 @@ else
     echo "Python3 ist bereits installiert."
 fi
 
+# Sicherstellen, dass python3-venv installiert ist (nur für Linux/Ubuntu)
+if [[ "$OS" == "linux" ]]; then
+    if ! dpkg -s python3-venv >/dev/null 2>&1; then
+        echo "Das Paket python3-venv ist nicht installiert. Installiere es jetzt..."
+        sudo apt install -y python3-venv
+    fi
+fi
+
 # .venv Ordner erstellen, falls er nicht existiert
 if [ ! -d ".venv" ]; then
     echo "Erstelle das virtuelle Umfeld im .venv Ordner..."
@@ -42,6 +50,7 @@ source .venv/bin/activate
 
 # Installieren von Ansible im virtuellen Umfeld
 echo "Installiere Ansible im virtuellen Umfeld..."
+pip install --upgrade pip  # Sicherstellen, dass pip auf dem neuesten Stand ist
 pip install ansible
 
 # Bestätigung der Installation
