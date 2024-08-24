@@ -78,12 +78,17 @@ else
 fi
 
 # Clone dotfiles repo
-git clone https://github.com/Bernotese/dotfiles.git
+if [ ! -f "dotfiles" ]; then
+    git clone https://github.com/Bernotese/dotfiles.git
+else
+    cd dotfiles/
+    git pull
+fi
 
 # Ansible Setup
-ansible-playbook dotfiles/ansible/00-main.yml
+ansible-playbook ansible/00-main.yml
 
 # Deaktivieren des virtuellen Umfelds
 deactivate
 
-echo "Fertig!"
+cd | echo "Fertig!"
