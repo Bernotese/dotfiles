@@ -1,0 +1,3 @@
+---
+- name: ZSH installation
+  ansible.builtin.import_playbook:: 10-zsh.yml

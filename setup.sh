@@ -77,10 +77,13 @@ else
     echo "Fehler bei der Installation von Ansible."
 fi
 
-# Deaktivieren des virtuellen Umfelds
-deactivate
-
 # Clone dotfiles repo
 git clone https://github.com/Bernotese/dotfiles.git
+
+# Ansible Setup
+ansible-playbook dotfiles/ansible/00-main.yml
+
+# Deaktivieren des virtuellen Umfelds
+deactivate
 
 echo "Fertig!"

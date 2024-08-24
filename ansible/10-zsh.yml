@@ -1,0 +1,58 @@
+---
+- name: Install Zsh and Oh My Zsh
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Zsh
+      apt:
+        name: zsh
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Zsh
+      yum:
+        name: zsh
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Change default shell to zsh for the current user
+      user:
+        name: "{{ ansible_user }}"
+        shell: /bin/zsh
+
+    - name: Install git (required for Oh My Zsh)
+      apt:
+        name: git
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install git (required for Oh My Zsh)
+      yum:
+        name: git
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Oh My Zsh
+      shell: >
+        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      args:
+        creates: /home/{{ ansible_user }}/.oh-my-zsh
+      environment:
+        ZSH: /home/{{ ansible_user }}/.oh-my-zsh
+        ZSH_CUSTOM: /home/{{ ansible_user }}/.oh-my-zsh/custom
+      become: false
+
+    - name: Set Zsh as the default shell in /etc/passwd
+      lineinfile:
+        path: /etc/passwd
+        regexp: '^{{ ansible_user }}:'
+        line: "{{ ansible_user }}:x:{{ ansible_uid }}:{{ ansible_gid }}:,,,:/home/{{ ansible_user }}:/bin/zsh"
+      become: true
+
+    - name: Verify Zsh installation
+      shell: zsh --version
+      register: zsh_version
+
+    - debug:
+        msg: "Zsh Version: {{ zsh_version.stdout }}"
