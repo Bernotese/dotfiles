@@ -37,16 +37,33 @@ if [[ "$OS" == "linux" ]]; then
     fi
 fi
 
-# .venv Ordner erstellen, falls er nicht existiert
-if [ ! -d ".venv" ]; then
-    echo "Erstelle das virtuelle Umfeld im .venv Ordner..."
-    python3 -m venv .venv
+# .venv/ansible Ordner erstellen oder neu erstellen, falls er defekt ist
+if [ ! -d ".venv/ansible" ]; then
+    echo "Erstelle das virtuelle Umfeld im .venv/ansible Ordner..."
+    python3 -m venv .venv/ansible
 else
-    echo "Das virtuelle Umfeld existiert bereits."
+    echo "Das virtuelle Umfeld existiert bereits. Überprüfe es..."
+    if [ ! -f ".venv/ansible/bin/activate" ]; then
+        echo "Das virtuelle Umfeld scheint defekt zu sein. Lösche und erstelle es neu..."
+        rm -rf .venv/ansible
+        python3 -m venv .venv/ansible
+    fi
+fi
+
+# Überprüfen, ob die Aktivierungsskript vorhanden ist
+if [ ! -f ".venv/ansible/bin/activate" ]; then
+    echo "Das Aktivierungsskript wurde nicht gefunden. Abbruch."
+    exit 1
 fi
 
 # Aktivieren des virtuellen Umfelds
-source .venv/bin/activate
+source .venv/ansible/bin/activate
+
+# Überprüfen, ob pip im virtuellen Umfeld vorhanden ist
+if ! command_exists pip; then
+    echo "pip wurde nicht gefunden. Etwas ist schief gelaufen."
+    exit 1
+fi
 
 # Installieren von Ansible im virtuellen Umfeld
 echo "Installiere Ansible im virtuellen Umfeld..."
