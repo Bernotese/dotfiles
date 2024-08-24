@@ -1,0 +1,4 @@
+# ignores from dotfiles dir
+^/README.*
+^/setup.sh
+/scripts
