@@ -86,7 +86,7 @@ else
 fi
 
 # Ansible Setup
-ansible-playbook ansible/00-main.yml
+ansible-playbook dotfiles/ansible/00-main.yml
 
 # Deaktivieren des virtuellen Umfelds
 deactivate

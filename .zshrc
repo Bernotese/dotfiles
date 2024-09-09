@@ -4,7 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="geoffgarside"
+ZSH_THEME="clean"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"

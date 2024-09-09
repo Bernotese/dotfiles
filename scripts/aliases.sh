@@ -10,4 +10,4 @@ alias ans="source .venv/ansible/bin/activate"
 
 # usefull
 alias grep='grep --color=auto'
-alias cd="z"
+#alias cd="z"
